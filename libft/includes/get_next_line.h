@@ -1,38 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.h                                             :+:    :+:            */
+/*   get_next_line.h                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jheeresm <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/04/26 16:10:26 by jheeresm      #+#    #+#                 */
-/*   Updated: 2019/04/26 16:10:26 by jheeresm      ########   odam.nl         */
+/*   Created: 2019/02/09 14:42:55 by jheeresm      #+#    #+#                 */
+/*   Updated: 2019/03/12 15:06:26 by jheeresm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
-# include "libft/includes/libft.h"
-# include <unistd.h>
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
+# define BUFF_SIZE 2
+# include <string.h>
 
-typedef struct		s_ant
-{
-	int				timer;
-}					t_ant;
-
-typedef	struct		s_node
-{
-	char			*name;
-	int				x;
-	int				y;
-	int				start;
-	int				end;
-	t_ant			**ants;
-	struct s_node	**links;
-	int				distance;
-	int				choke;
-}					t_node;
-int					read_and_check(t_node ***rooms);
-
+int					get_next_line(const int fd, char **line);
+void				ft_strdel(char **as);
+char				*ft_strjoin(char const *s1, char const *s2);
+char				*ft_strcpy(char *dst, const char *src);
+size_t				ft_strlen(const char *str);
+int					ft_strnchr(const char *s, int c);
+char				*ft_strnew(size_t size);
 
 #endif

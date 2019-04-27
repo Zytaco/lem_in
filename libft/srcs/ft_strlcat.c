@@ -1,38 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.h                                             :+:    :+:            */
+/*   ft_strlcat.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jheeresm <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/04/26 16:10:26 by jheeresm      #+#    #+#                 */
-/*   Updated: 2019/04/26 16:10:26 by jheeresm      ########   odam.nl         */
+/*   Created: 2019/01/18 15:08:17 by jheeresm      #+#    #+#                 */
+/*   Updated: 2019/02/08 13:10:29 by jheeresm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
-# include "libft/includes/libft.h"
-# include <unistd.h>
+#include <stdlib.h>
 
-typedef struct		s_ant
+size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
-	int				timer;
-}					t_ant;
+	size_t i;
+	size_t j;
 
-typedef	struct		s_node
-{
-	char			*name;
-	int				x;
-	int				y;
-	int				start;
-	int				end;
-	t_ant			**ants;
-	struct s_node	**links;
-	int				distance;
-	int				choke;
-}					t_node;
-int					read_and_check(t_node ***rooms);
-
-
-#endif
+	i = 0;
+	while (dst[i] && i < size)
+		i++;
+	j = 0;
+	while (i + j < size && src[j] != 0)
+	{
+		if (i + j + 1 < size)
+			dst[i + j] = src[j];
+		else
+			dst[i + j] = 0;
+		j++;
+	}
+	if (src[j] == 0)
+		dst[i + j] = 0;
+	while (src[j] != 0)
+		j++;
+	return (i + j);
+}

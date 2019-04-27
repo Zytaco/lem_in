@@ -1,38 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.h                                             :+:    :+:            */
+/*   ft_lstlen.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jheeresm <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/04/26 16:10:26 by jheeresm      #+#    #+#                 */
-/*   Updated: 2019/04/26 16:10:26 by jheeresm      ########   odam.nl         */
+/*   Created: 2019/02/09 14:10:42 by jheeresm      #+#    #+#                 */
+/*   Updated: 2019/02/13 15:01:30 by jheeresm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
-# include "libft/includes/libft.h"
-# include <unistd.h>
+#include "libft.h"
 
-typedef struct		s_ant
+int		ft_lstlen(t_list **alst)
 {
-	int				timer;
-}					t_ant;
+	int		len;
+	t_list	*current;
 
-typedef	struct		s_node
-{
-	char			*name;
-	int				x;
-	int				y;
-	int				start;
-	int				end;
-	t_ant			**ants;
-	struct s_node	**links;
-	int				distance;
-	int				choke;
-}					t_node;
-int					read_and_check(t_node ***rooms);
-
-
-#endif
+	if (alst == NULL || *alst == NULL)
+		return (0);
+	current = *alst;
+	len = 1;
+	while (current->next != NULL)
+	{
+		len++;
+		current = current->next;
+	}
+	return (len);
+}

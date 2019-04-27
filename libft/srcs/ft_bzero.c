@@ -1,38 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.h                                             :+:    :+:            */
+/*   ft_bzero.c                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jheeresm <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/04/26 16:10:26 by jheeresm      #+#    #+#                 */
-/*   Updated: 2019/04/26 16:10:26 by jheeresm      ########   odam.nl         */
+/*   Created: 2019/01/18 12:53:28 by jheeresm      #+#    #+#                 */
+/*   Updated: 2019/02/09 16:34:52 by jheeresm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
-# include "libft/includes/libft.h"
-# include <unistd.h>
+#include <stdlib.h>
 
-typedef struct		s_ant
+void	ft_bzero(void *s, size_t n)
 {
-	int				timer;
-}					t_ant;
+	char	*str;
 
-typedef	struct		s_node
-{
-	char			*name;
-	int				x;
-	int				y;
-	int				start;
-	int				end;
-	t_ant			**ants;
-	struct s_node	**links;
-	int				distance;
-	int				choke;
-}					t_node;
-int					read_and_check(t_node ***rooms);
-
-
-#endif
+	str = s;
+	while (n > 0)
+	{
+		str[n - 1] = 0;
+		n--;
+	}
+}

@@ -1,38 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.h                                             :+:    :+:            */
+/*   ft_lstaddlast.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jheeresm <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/04/26 16:10:26 by jheeresm      #+#    #+#                 */
-/*   Updated: 2019/04/26 16:10:26 by jheeresm      ########   odam.nl         */
+/*   Created: 2019/02/09 11:53:54 by jheeresm      #+#    #+#                 */
+/*   Updated: 2019/02/23 12:50:31 by jheeresm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
-# include "libft/includes/libft.h"
-# include <unistd.h>
+#include "libft.h"
 
-typedef struct		s_ant
+t_list	*ft_lstaddlast(t_list **alst, t_list *new)
 {
-	int				timer;
-}					t_ant;
+	t_list *current;
 
-typedef	struct		s_node
-{
-	char			*name;
-	int				x;
-	int				y;
-	int				start;
-	int				end;
-	t_ant			**ants;
-	struct s_node	**links;
-	int				distance;
-	int				choke;
-}					t_node;
-int					read_and_check(t_node ***rooms);
-
-
-#endif
+	if (alst == NULL)
+		return (NULL);
+	if (*alst == NULL)
+	{
+		*alst = new;
+		return (*alst);
+	}
+	current = *alst;
+	while (current->next != NULL)
+		current = current->next;
+	if (current->next == NULL)
+		current->next = new;
+	return (*alst);
+}

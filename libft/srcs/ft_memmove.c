@@ -1,38 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.h                                             :+:    :+:            */
+/*   ft_memmove.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jheeresm <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/04/26 16:10:26 by jheeresm      #+#    #+#                 */
-/*   Updated: 2019/04/26 16:10:26 by jheeresm      ########   odam.nl         */
+/*   Created: 2019/01/13 14:03:01 by jheeresm      #+#    #+#                 */
+/*   Updated: 2019/02/08 16:26:58 by jheeresm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
-# include "libft/includes/libft.h"
-# include <unistd.h>
+#include <stdlib.h>
 
-typedef struct		s_ant
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	int				timer;
-}					t_ant;
+	size_t		i;
+	char		*tempdst;
+	char const	*tempsrc;
 
-typedef	struct		s_node
-{
-	char			*name;
-	int				x;
-	int				y;
-	int				start;
-	int				end;
-	t_ant			**ants;
-	struct s_node	**links;
-	int				distance;
-	int				choke;
-}					t_node;
-int					read_and_check(t_node ***rooms);
-
-
-#endif
+	tempdst = dst;
+	tempsrc = src;
+	if (dst >= src)
+	{
+		i = len;
+		while (i > 0)
+		{
+			i--;
+			tempdst[i] = tempsrc[i];
+		}
+	}
+	else
+	{
+		i = 0;
+		while (i < len)
+		{
+			tempdst[i] = tempsrc[i];
+			i++;
+		}
+	}
+	return (dst);
+}

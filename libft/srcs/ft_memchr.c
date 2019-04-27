@@ -1,38 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.h                                             :+:    :+:            */
+/*   ft_memchr.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jheeresm <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/04/26 16:10:26 by jheeresm      #+#    #+#                 */
-/*   Updated: 2019/04/26 16:10:26 by jheeresm      ########   odam.nl         */
+/*   Created: 2019/01/13 16:40:34 by jheeresm      #+#    #+#                 */
+/*   Updated: 2019/02/08 13:36:36 by jheeresm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
-# include "libft/includes/libft.h"
-# include <unistd.h>
+#include <stdlib.h>
 
-typedef struct		s_ant
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	int				timer;
-}					t_ant;
+	const unsigned char	*str;
+	size_t				i;
 
-typedef	struct		s_node
-{
-	char			*name;
-	int				x;
-	int				y;
-	int				start;
-	int				end;
-	t_ant			**ants;
-	struct s_node	**links;
-	int				distance;
-	int				choke;
-}					t_node;
-int					read_and_check(t_node ***rooms);
-
-
-#endif
+	str = s;
+	i = 0;
+	while (i < n)
+	{
+		if (str[i] == (unsigned char)c)
+			return ((void *)s + i);
+		i++;
+	}
+	return (NULL);
+}

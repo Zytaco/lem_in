@@ -1,38 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.h                                             :+:    :+:            */
+/*   ft_strnchr2.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jheeresm <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/04/26 16:10:26 by jheeresm      #+#    #+#                 */
-/*   Updated: 2019/04/26 16:10:26 by jheeresm      ########   odam.nl         */
+/*   Created: 2019/03/01 10:50:16 by jheeresm      #+#    #+#                 */
+/*   Updated: 2019/03/01 11:49:40 by jheeresm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
-# include "libft/includes/libft.h"
-# include <unistd.h>
-
-typedef struct		s_ant
+int		ft_strnchr2(const char *s, int c1, int c2)
 {
-	int				timer;
-}					t_ant;
+	long unsigned int i;
 
-typedef	struct		s_node
-{
-	char			*name;
-	int				x;
-	int				y;
-	int				start;
-	int				end;
-	t_ant			**ants;
-	struct s_node	**links;
-	int				distance;
-	int				choke;
-}					t_node;
-int					read_and_check(t_node ***rooms);
-
-
-#endif
+	if (s == (void*)0)
+		return (-2);
+	i = 0;
+	while (s[i] && s[i] != (char)c1 && s[i] != (char)c2)
+		i++;
+	if (s[i] != (char)c1 && s[i] != (char)c2)
+		return (-1);
+	else
+		return (i);
+}

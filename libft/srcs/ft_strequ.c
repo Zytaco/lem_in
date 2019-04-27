@@ -1,38 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.h                                             :+:    :+:            */
+/*   ft_strequ.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jheeresm <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/04/26 16:10:26 by jheeresm      #+#    #+#                 */
-/*   Updated: 2019/04/26 16:10:26 by jheeresm      ########   odam.nl         */
+/*   Created: 2019/01/15 16:45:50 by jheeresm      #+#    #+#                 */
+/*   Updated: 2019/02/08 14:30:13 by jheeresm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
-# include "libft/includes/libft.h"
-# include <unistd.h>
-
-typedef struct		s_ant
+int		ft_strequ(char const *s1, char const *s2)
 {
-	int				timer;
-}					t_ant;
+	int i;
 
-typedef	struct		s_node
-{
-	char			*name;
-	int				x;
-	int				y;
-	int				start;
-	int				end;
-	t_ant			**ants;
-	struct s_node	**links;
-	int				distance;
-	int				choke;
-}					t_node;
-int					read_and_check(t_node ***rooms);
-
-
-#endif
+	if (s1 == (char*)0 && s2 == (char*)0)
+		return (0);
+	if (s1 == (char*)0)
+		return (-1);
+	if (s2 == (char*)0)
+		return (1);
+	i = 0;
+	while (s1[i] == s2[i] && s1[i] && s2[i])
+		i++;
+	if (s1[i] == s2[i])
+		return (1);
+	else
+		return (0);
+}

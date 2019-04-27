@@ -1,38 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.h                                             :+:    :+:            */
+/*   ft_strncpy.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jheeresm <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/04/26 16:10:26 by jheeresm      #+#    #+#                 */
-/*   Updated: 2019/04/26 16:10:26 by jheeresm      ########   odam.nl         */
+/*   Created: 2019/01/18 13:44:12 by jheeresm      #+#    #+#                 */
+/*   Updated: 2019/02/07 14:13:35 by jheeresm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
-# include "libft/includes/libft.h"
-# include <unistd.h>
+#include <stdlib.h>
 
-typedef struct		s_ant
+char	*ft_strncpy(char *dst, const char *src, size_t len)
 {
-	int				timer;
-}					t_ant;
+	size_t	i;
+	int		j;
 
-typedef	struct		s_node
-{
-	char			*name;
-	int				x;
-	int				y;
-	int				start;
-	int				end;
-	t_ant			**ants;
-	struct s_node	**links;
-	int				distance;
-	int				choke;
-}					t_node;
-int					read_and_check(t_node ***rooms);
-
-
-#endif
+	j = 0;
+	i = 0;
+	while (i < len)
+	{
+		if (src[i + j] != 0)
+			dst[i] = src[i];
+		else
+		{
+			dst[i] = '\0';
+			j--;
+		}
+		i++;
+	}
+	return (dst);
+}

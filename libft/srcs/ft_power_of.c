@@ -1,38 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.h                                             :+:    :+:            */
+/*   ft_power_of.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jheeresm <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/04/26 16:10:26 by jheeresm      #+#    #+#                 */
-/*   Updated: 2019/04/26 16:10:26 by jheeresm      ########   odam.nl         */
+/*   Created: 2019/02/09 14:22:33 by jheeresm      #+#    #+#                 */
+/*   Updated: 2019/02/09 14:36:04 by jheeresm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
-# include "libft/includes/libft.h"
-# include <unistd.h>
-
-typedef struct		s_ant
+int		ft_power_of(int base, unsigned int power)
 {
-	int				timer;
-}					t_ant;
+	int result;
 
-typedef	struct		s_node
-{
-	char			*name;
-	int				x;
-	int				y;
-	int				start;
-	int				end;
-	t_ant			**ants;
-	struct s_node	**links;
-	int				distance;
-	int				choke;
-}					t_node;
-int					read_and_check(t_node ***rooms);
-
-
-#endif
+	if (base == 0)
+		return (0);
+	result = 1;
+	while (power > 0)
+	{
+		if (2147483647 / base > result)
+			return (0);
+		if (-2147483648 / base < result)
+			return (0);
+		result *= base;
+		power--;
+	}
+	return (result);
+}

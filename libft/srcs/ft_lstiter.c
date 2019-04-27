@@ -1,38 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.h                                             :+:    :+:            */
+/*   ft_lstiter.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jheeresm <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/04/26 16:10:26 by jheeresm      #+#    #+#                 */
-/*   Updated: 2019/04/26 16:10:26 by jheeresm      ########   odam.nl         */
+/*   Created: 2019/02/04 16:04:00 by jheeresm      #+#    #+#                 */
+/*   Updated: 2019/02/09 12:05:52 by jheeresm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
-# include "libft/includes/libft.h"
-# include <unistd.h>
+#include "libft.h"
 
-typedef struct		s_ant
+void	ft_lstiter(t_list *lst, void (*f)(t_list *elem))
 {
-	int				timer;
-}					t_ant;
+	t_list *next_one;
 
-typedef	struct		s_node
-{
-	char			*name;
-	int				x;
-	int				y;
-	int				start;
-	int				end;
-	t_ant			**ants;
-	struct s_node	**links;
-	int				distance;
-	int				choke;
-}					t_node;
-int					read_and_check(t_node ***rooms);
-
-
-#endif
+	if (lst == NULL || f == NULL)
+		return ;
+	while (lst->next != NULL)
+	{
+		next_one = lst->next;
+		f(lst);
+		lst = next_one;
+	}
+	f(lst);
+}

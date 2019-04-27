@@ -1,38 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.h                                             :+:    :+:            */
+/*   ft_memalloc.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jheeresm <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/04/26 16:10:26 by jheeresm      #+#    #+#                 */
-/*   Updated: 2019/04/26 16:10:26 by jheeresm      ########   odam.nl         */
+/*   Created: 2019/01/14 13:37:57 by jheeresm      #+#    #+#                 */
+/*   Updated: 2019/02/08 14:21:34 by jheeresm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
-# include "libft/includes/libft.h"
-# include <unistd.h>
+#include <stdlib.h>
 
-typedef struct		s_ant
+void	*ft_memalloc(size_t size)
 {
-	int				timer;
-}					t_ant;
+	void	*ptr;
+	char	*ptr2;
+	size_t	i;
 
-typedef	struct		s_node
-{
-	char			*name;
-	int				x;
-	int				y;
-	int				start;
-	int				end;
-	t_ant			**ants;
-	struct s_node	**links;
-	int				distance;
-	int				choke;
-}					t_node;
-int					read_and_check(t_node ***rooms);
-
-
-#endif
+	ptr = (void *)malloc(size);
+	if (ptr == NULL)
+		return (NULL);
+	ptr2 = ptr;
+	i = 0;
+	while (i < size)
+	{
+		ptr2[i] = 0;
+		i++;
+	}
+	return (ptr);
+}

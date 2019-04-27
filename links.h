@@ -1,20 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.h                                             :+:    :+:            */
+/*   links.h                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jheeresm <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/04/26 16:10:26 by jheeresm      #+#    #+#                 */
-/*   Updated: 2019/04/26 16:10:26 by jheeresm      ########   odam.nl         */
+/*   Created: 2019/04/27 17:16:11 by jheeresm      #+#    #+#                 */
+/*   Updated: 2019/04/27 17:16:12 by jheeresm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
-# include "libft/includes/libft.h"
-# include <unistd.h>
+#ifndef LINKS_H
+# define LINKS_H
 
+# include "libft/includes/libft.h"
 typedef struct		s_ant
 {
 	int				timer;
@@ -32,7 +31,5 @@ typedef	struct		s_node
 	int				distance;
 	int				choke;
 }					t_node;
-int					read_and_check(t_node ***rooms);
-
 
 #endif

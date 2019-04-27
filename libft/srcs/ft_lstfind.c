@@ -1,38 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.h                                             :+:    :+:            */
+/*   ft_lstfind.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jheeresm <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/04/26 16:10:26 by jheeresm      #+#    #+#                 */
-/*   Updated: 2019/04/26 16:10:26 by jheeresm      ########   odam.nl         */
+/*   Created: 2019/02/13 15:18:02 by jheeresm      #+#    #+#                 */
+/*   Updated: 2019/02/22 11:32:49 by jheeresm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
-# include "libft/includes/libft.h"
-# include <unistd.h>
+#includes "libft.h"
 
-typedef struct		s_ant
+t_list		*ft_lstfind(t_list **alst, void const *content, int len)
 {
-	int				timer;
-}					t_ant;
+	t_list		*current;
+	int			i;
 
-typedef	struct		s_node
-{
-	char			*name;
-	int				x;
-	int				y;
-	int				start;
-	int				end;
-	t_ant			**ants;
-	struct s_node	**links;
-	int				distance;
-	int				choke;
-}					t_node;
-int					read_and_check(t_node ***rooms);
-
-
-#endif
+	if (alst != NULL)
+		current = *alst;
+	i = 0;
+	while (alst != NULL && current != NULL)
+	{
+		while (i < len && content[i] == current->content[i])
+			i++;
+		if (i == len)
+			return (current);
+		current = current->next;
+	}
+	return (NULL);
+}

@@ -1,38 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.h                                             :+:    :+:            */
+/*   ft_strstr.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jheeresm <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/04/26 16:10:26 by jheeresm      #+#    #+#                 */
-/*   Updated: 2019/04/26 16:10:26 by jheeresm      ########   odam.nl         */
+/*   Created: 2019/01/13 17:30:16 by jheeresm      #+#    #+#                 */
+/*   Updated: 2019/02/08 13:44:59 by jheeresm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
-# include "libft/includes/libft.h"
-# include <unistd.h>
-
-typedef struct		s_ant
+char	*ft_strstr(const char *haystack, const char *needle)
 {
-	int				timer;
-}					t_ant;
+	unsigned long int i;
+	unsigned long int j;
 
-typedef	struct		s_node
-{
-	char			*name;
-	int				x;
-	int				y;
-	int				start;
-	int				end;
-	t_ant			**ants;
-	struct s_node	**links;
-	int				distance;
-	int				choke;
-}					t_node;
-int					read_and_check(t_node ***rooms);
-
-
-#endif
+	if (!(*needle))
+		return ((char *)haystack);
+	i = 0;
+	while (haystack[i])
+	{
+		j = 0;
+		while (needle[j] == haystack[i + j])
+		{
+			if (!needle[j + 1])
+				return ((char *)haystack + i);
+			j++;
+		}
+		i++;
+	}
+	return ((void*)0);
+}

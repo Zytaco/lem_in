@@ -13,16 +13,15 @@
 #include "main.h"
 #include <stdio.h>
 
-int main(int argc, char **argv)
+int main(void)
 {
-	int i;
+	t_node	**rooms;
 
-	i = 1;
-	while (i < argc)
+	if (!read_and_check(&rooms))
 	{
-		printf("%s\n", argv[i]);
-		i++;
+		write(1, "Error\n", 6);
+		return (1);
 	}
-	printf("Done %d\n", i);
+	solver(rooms);
 	return (1);
 }

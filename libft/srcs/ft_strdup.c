@@ -1,38 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.h                                             :+:    :+:            */
+/*   ft_strdup.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jheeresm <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/04/26 16:10:26 by jheeresm      #+#    #+#                 */
-/*   Updated: 2019/04/26 16:10:26 by jheeresm      ########   odam.nl         */
+/*   Created: 2019/01/09 11:13:43 by jheeresm      #+#    #+#                 */
+/*   Updated: 2019/02/25 16:36:42 by jheeresm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
-# include "libft/includes/libft.h"
-# include <unistd.h>
+#include <stdlib.h>
 
-typedef struct		s_ant
+char	*ft_strdup(char *src)
 {
-	int				timer;
-}					t_ant;
+	char	*cpy;
+	int		length;
+	int		i;
 
-typedef	struct		s_node
-{
-	char			*name;
-	int				x;
-	int				y;
-	int				start;
-	int				end;
-	t_ant			**ants;
-	struct s_node	**links;
-	int				distance;
-	int				choke;
-}					t_node;
-int					read_and_check(t_node ***rooms);
-
-
-#endif
+	length = 0;
+	while (src[length])
+		length++;
+	cpy = (char*)malloc(sizeof(char) * (length + 1));
+	if (cpy == (char*)0)
+		return (NULL);
+	i = 0;
+	while (src[i])
+	{
+		cpy[i] = src[i];
+		i++;
+	}
+	cpy[i] = src[i];
+	return (cpy);
+}

@@ -1,38 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.h                                             :+:    :+:            */
+/*   ft_strnew.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jheeresm <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/04/26 16:10:26 by jheeresm      #+#    #+#                 */
-/*   Updated: 2019/04/26 16:10:26 by jheeresm      ########   odam.nl         */
+/*   Created: 2019/01/15 15:37:13 by jheeresm      #+#    #+#                 */
+/*   Updated: 2019/02/09 18:09:13 by jheeresm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
-# include "libft/includes/libft.h"
-# include <unistd.h>
+#include <stdlib.h>
 
-typedef struct		s_ant
+char	*ft_strnew(size_t size)
 {
-	int				timer;
-}					t_ant;
+	char	*str;
+	int		i;
 
-typedef	struct		s_node
-{
-	char			*name;
-	int				x;
-	int				y;
-	int				start;
-	int				end;
-	t_ant			**ants;
-	struct s_node	**links;
-	int				distance;
-	int				choke;
-}					t_node;
-int					read_and_check(t_node ***rooms);
-
-
-#endif
+	str = (char*)malloc(size + 1);
+	i = 0;
+	while (str == NULL && i < 100)
+	{
+		str = (char*)malloc(size + 1);
+		i++;
+	}
+	if (str == NULL)
+		return (NULL);
+	str[size] = 0;
+	while (size > 0)
+	{
+		str[size - 1] = 0;
+		size--;
+	}
+	return (str);
+}
