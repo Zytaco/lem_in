@@ -125,8 +125,8 @@ int			read_and_check(t_node ***rooms)
 		if (!make_rooms(rooms, line, start_end))
 			return (0);
 	}
-	while(get_next_line(0, &line) && link_check(line, *rooms) &&
-	!comment_check(line))
+	while(get_next_line(0, &line) && !comment_check(line) &&
+	link_check(line, *rooms))
 	{
 		if (make_link(*rooms, line))
 			return (0);
