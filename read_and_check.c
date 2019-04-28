@@ -131,6 +131,7 @@ int			read_and_check(t_node ***rooms)
 		if (make_link(*rooms, line))
 			return (0);
 	}
-	put_in_start(rooms, ants);
+	if (get_next_line(0, &line) != 0 || put_in_start(rooms, ants))
+		return (0);
 	return (1);
 }

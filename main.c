@@ -17,7 +17,7 @@ int main(void)
 {
 	t_node	**rooms;
 
-	if (!read_and_check(&rooms))
+	if (!read_and_check(&rooms) || !distance(rooms))
 	{
 		write(1, "Error\n", 6);
 		return (1);

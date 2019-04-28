@@ -35,5 +35,6 @@ int					int_check(char *s);
 int					comment_check(char *line);
 int					room_check(char *line);
 int					start_end_check(char *line, int *start_end);
+int					put_in_start(t_node **rooms, t_ant **ants);
 
 #endif

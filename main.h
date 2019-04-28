@@ -33,6 +33,6 @@ typedef	struct		s_node
 	int				choke;
 }					t_node;
 int					read_and_check(t_node ***rooms);
-
+int					distance(t_node **rooms);
 
 #endif

@@ -12,6 +12,35 @@
 
 #include "links.h"
 
+int	put_in_start(t_node **rooms, t_ant **ants)
+{
+	int		i;
+	int		j;
+	t_node	*temp;
+
+	i = 0;
+	while (rooms[i] && !rooms[i]->start)
+		i++;
+	if (!rooms[i] || !ants || !ants[0])
+		return (0);
+	temp = rooms[0];
+	rooms[0] = rooms[i];
+	rooms[i] = temp;
+	rooms[0]->ants = ants;
+	j = 0;
+	while (rooms[j] && !rooms[j]->end)
+		j++;
+	if (!rooms[j])
+		return (0);
+	rooms[j]->distance = 0;
+	while (rooms[i])
+		i++;
+	temp = rooms[i - 1];
+	rooms[i - 1] = rooms[j];
+	rooms[j] = temp;
+	return (1);
+}
+
 int	add_link(t_node *node, t_list *target)
 {
 	int		i;

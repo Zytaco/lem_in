@@ -12,7 +12,7 @@
 
 NAME = lem-in
 
-SRC = main.c read_and_check.c checks.c
+SRC = main.c read_and_check.c checks.c distance.c
 
 OBJ = $(SRC:.c=.o)
 
