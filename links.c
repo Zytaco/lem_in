@@ -12,7 +12,7 @@
 
 #include "links.h"
 
-int	put_in_start(t_node **rooms, t_ant **ants)
+int	put_in_start(t_node **rooms, int ants)
 {
 	int		i;
 	int		j;
@@ -21,7 +21,7 @@ int	put_in_start(t_node **rooms, t_ant **ants)
 	i = 0;
 	while (rooms[i] && !rooms[i]->start)
 		i++;
-	if (!rooms[i] || !ants || !ants[0])
+	if (!rooms[i] || !ants || ants <= 0)
 		return (0);
 	temp = rooms[0];
 	rooms[0] = rooms[i];
@@ -33,10 +33,8 @@ int	put_in_start(t_node **rooms, t_ant **ants)
 	if (!rooms[j])
 		return (0);
 	rooms[j]->distance = 0;
-	while (rooms[i])
-		i++;
-	temp = rooms[i - 1];
-	rooms[i - 1] = rooms[j];
+	temp = rooms[1];
+	rooms[1] = rooms[j];
 	rooms[j] = temp;
 	return (1);
 }
@@ -55,6 +53,8 @@ int	add_link(t_node *node, t_list *target)
 	i = 0;
 	while (node->links && node->links[i])
 	{
+		if (node->links[i] == target)
+			return (1);
 		new[i] = node->links[i];
 		i++;
 	}
@@ -84,7 +84,7 @@ int	make_link(t_node **rooms, char *line)
 	if (!rooms[j] || !rooms[k] || j == k)
 		return (0);
 	add_link(rooms[j], rooms[k]);
-	add_link(rooms[j], rooms[k]);
+	add_link(rooms[k], rooms[j]);
 	return (1);
 }
 

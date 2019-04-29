@@ -12,28 +12,6 @@
 
 #include "read_and_check.h"
 
-static int	make_ants(char *line, t_ant ***ants)
-{
-	int n;
-	int i;
-
-	n = ft_atoi(line);
-	*ants = (t_ant**)malloc(sizeof(t_ant*) * (n + 1));
-	if (*ants == NULL)
-		return (0);
-	(*ants)[n] = NULL;
-	i = 0;
-	while (i < n)
-	{
-		(*ants)[i] = (t_ant*)malloc(sizeof(t_ant));
-		if ((*ants)[i] == NULL)
-			return (0);
-		(*ants)[i]->timer = 1;
-		i++;
-	}
-	return (1);
-}
-
 static t_node	*make_room(char *name, int x, int y, int start_end)
 {
 	t_node *new;
@@ -50,11 +28,9 @@ static t_node	*make_room(char *name, int x, int y, int start_end)
 	new->end = 0;
 	if (start_end == 2)
 		new->end = 1;
-	new->number_of_ants = 0;
-	new->ants = NULL;
+	new->ants = 0;
 	new->links = NULL;
 	new->distance = -1;
-	new->choke = -1;
 	return (new);
 }
 
@@ -110,14 +86,15 @@ static int	make_rooms(t_node ***rooms, char *line, int start_end)
 int			read_and_check(t_node ***rooms)
 {
 	char	*line;
-	t_ant	**ants;
+	int		ants;
 	int		start_end;
 
 	line = NULL;
 	while (get_next_line(0, &line) && comment_check(line))
 		*rooms = NULL;
-	if (read(0, line, 0) < 0 || !int_check(line) || !make_ants(line, &ants))
+	if (read(0, line, 0) < 0 || !int_check(line))
 		return (0);
+	ants = ft_atoi(line);
 	start_end = 0;
 	while (get_next_line(0, &line) && !start_end_check(line, &start_end)
 	&& room_check(line) && !comment_check(line))

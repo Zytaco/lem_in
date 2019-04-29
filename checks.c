@@ -16,6 +16,8 @@ int	int_check(char *s)
 {
 	int i;
 
+	if (!s)
+		return (0);
 	i = 0;
 	if (s[i] == '-' || s[i] == '+')
 		i++;
@@ -29,14 +31,14 @@ int	int_check(char *s)
 
 int	comment_check(char *line)
 {
-	if (line[0] == '#' && line[1] != '#')
+	if (!line || (line[0] == '#' && line[1] != '#'))
 		return (1);
 	return (0);
 }
 
 int	room_check(char *line)
 {
-	if (*line == '#' || *line == 'L' || *line == ' ')
+	if (!line || *line == '#' || *line == 'L' || *line == ' ')
 		return (0);
 	while (*line != ' ' && *line != '\0')
 		line++;
@@ -63,19 +65,16 @@ int	room_check(char *line)
 
 int	start_end_check(char *line, int *start_end)
 {
-	if (ft_strncmp(line, "##start", 8) == 0)
-	{
+	if (!line)
+		*start_end = 0;
+	else if (ft_strncmp(line, "##start", 8) == 0)
 		*start_end = 1;
-		return (0);
-	}
 	else if (ft_strncmp(line, "##end", 8) == 0)
-	{
 		*start_end = 2;
-		return (0);
-	}
 	else
 	{
 		*start_end = 0;
 		return (1);
 	}
+	return (0);
 }
