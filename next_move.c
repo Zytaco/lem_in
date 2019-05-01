@@ -1,83 +1,68 @@
 
 #include "next_move.h"
 
-static int	check_move(t_node **oc, t_node *from, t_node *to)
-{
-	int i;
-
-	i = 0;
-	while (oc[i] && oc[i] != from)
-		i++;
-	if (oc[i] == NULL)
-		return (0);
-	if (to->end == 0 && to->start == 0 && to->ants > 0)
-		return (0);
-	return (1);
-}
-
-static int	move_ant(t_node **oc, t_node *from, t_node *to)
+static int	move_ant(t_node **oc, t_node *from, t_node *to, t_node **previous)
 {
 	int i;
 	int ret;
 
-	if (!check_move(oc, from, to))
-		return (0);
 	from->ants--;
 	to->ants++;
 	i = 0;
 	while (oc[i] != from)
 		i++;
 	oc[i] = to;
+	if (previous != NULL)
+		*previous = to;
 	return (1);
 }
 
-void		undo_move(t_node **oc, int ant, int *j)
+static int	setup(t_node *prev, t_node *from, t_node **lnks, int *i)
 {
-	int i;
+	int j;
+	int prev_d;
 
-	i = 0;
-	while (oc[ant]->links[i]->distance <= oc[ant]->distance)
+	j = 0;
+	if (prev == NULL)
+		prev_d = from->distance - 1;
+	else
+		prev_d = prev->distance;
+	if (prev != from)
 	{
-		if (*j == i)
-		{
-			move_ant(oc, oc[ant]->links[i], oc[ant]);
-			return ;
-		}
-		i++;
+		while (prev != NULL && lnks[j] != prev)
+			j++;
 	}
-	if (*j == i)
-		return ;
-	while (oc[ant]->links[i])
-	{
-		if (*j == i - 1)
-		{
-			move_ant(oc, oc[ant]->links[i], oc[ant]);
-			return ;
-		}
-		i++;
-	}
-	(*j)++;
+	*i = j;
+	return (prev_d);
 }
 
-int			next_move(t_node **oc, int ant, int *j)
+/*
+** if timer is N then only rooms with distance N - 1 are valid targets.
+*/
+
+int			next_move(t_node **oc, t_node *from, t_node **previous, int timer)
 {
 	int i;
+	int	prev_d;
+	t_node **lnks;
 
-	i = 0;
-	while (oc[ant]->links[i]->distance <= oc[ant]->distance)
+	lnks = from->links;
+	prev_d = setup(*previous, from, lnks, &i);
+	while (lnks[i]->distance > prev_d && prev_d <= from->distance + 1 &&
+	(lnks[i]->ants < 1 || lnks[i]->start || lnks[i]->end) && prev_d < timer)
 	{
-		if (*j == i)
-			return (move_ant(oc, oc[ant], oc[ant]->links[i]));
 		i++;
+		if (lnks[i] == NULL)
+			i = 0;
+		if (lnks[i] == *previous && prev_d == from->distance)
+			return (move_ant(oc, from, lnks[i], previous));
+		if (lnks[i] == *previous || (*previous == NULL && i == 0))
+			prev_d++;
 	}
-	if (*j == i)
-		return (1);
-	while (oc[ant]->links[i])
+	if (prev_d > from->distance + 1 || prev_d >= timer)
 	{
-		if (*j == i - 1)
-			return (move_ant(oc, oc[ant], oc[ant]->links[i]));
-		i++;
+		*previous = NULL;
+		return (0);
 	}
-	(*j) = -1;
-	return (0);
+	return (move_ant(oc, from, lnks[i], previous));
 }

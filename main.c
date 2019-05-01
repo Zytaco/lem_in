@@ -13,31 +13,20 @@
 #include "main.h"
 #include <stdio.h>
 
-static void		order_links(t_node **rooms)
+static void		display(char *walk)
 {
-	int		i;
-	int		j;
-	t_node	*temp;
+	int i;
 
 	i = 0;
-	while (rooms[i])
+	while (walk && walk[i])
 	{
-		j = 0;
-		while (j <= 0 || rooms[i]->links[j + 1])
-		{
-			if (j >= 0 &&
-			rooms[i]->links[j]->distance > rooms[i]->links[j + 1]->distance)
-			{
-				temp = rooms[i]->links[j];
-				rooms[i]->links[j] = rooms[i]->links[j + 1];
-				rooms[i]->links[j + 1] = temp;
-				j--;
-			}
-			else
-				j++;
-		}
+		write(1, *(walk + i), 1);
 		i++;
 	}
+	if (walk)
+		ft_strdel(&walk);
+	else
+		write(1, "Error\n", 6);
 }
 
 static void		free_rooms(t_node ***rooms)
@@ -75,22 +64,6 @@ static t_node	*make_occupied(t_node *start)
 	return (occupied);
 }
 
-static void		display(char *walk)
-{
-	int i;
-
-	i = 0;
-	while (walk && walk[i])
-	{
-		write(1, *(walk + i), 1);
-		i++;
-	}
-	if (walk)
-		ft_strdel(&walk);
-	else
-		write(1, "Error\n", 6);
-}
-
 int				main(void)
 {
 	t_node	**rooms;
@@ -103,7 +76,6 @@ int				main(void)
 		write(1, "Error\n", 6);
 		return (1);
 	}
-	order_links(rooms);
 	occupied = make_occupied(*rooms);
 	if (occupied == NULL)
 	{

@@ -10,27 +10,41 @@
 ** The occupied array contains one address per ant to the room that ant is in.
 */
 
+static int	move_ant(t_node **oc, t_node *from, t_node *to)
+{
+	int i;
+	int ret;
+
+	from->ants--;
+	to->ants++;
+	i = 0;
+	while (oc[i] != from)
+		i++;
+	oc[i] = to;
+	return (1);
+}
+
 static char	*add_names(char *name1, char *name2, char *walk)
 {
-	char	*new;
+	char	*temp;
 	int		i;
 
 	if (name1 == NULL && name2 == NULL)
 	{
-		new = ft_strrjoin(walk, "\n");
+		temp = ft_strjoin("\n", walk);
 		ft_strdel(&walk);
+		walk = temp;
 	}
 	else
 	{
-		walk = add_space(walk);
-		new = ft_strrjoin(walk, "L");
+		temp = ft_strjoin(name2, walk);
 		ft_strdel(&walk);
-		walk = ft_strrjoin(new, name1);
-		ft_strdel(&new);
-		new = ft_strrjoin(walk, "-");
+		temp = ft_strjoin("-", walk);
 		ft_strdel(&walk);
-		walk = ft_strrjoin(new, name2);
-		ft_strdel(&new);
+		walk = ft_strjoin(name1, temp);
+		ft_strdel(&temp);
+		walk = ft_strjoin("L", temp);
+		ft_strdel(&temp);
 	}
 	return (walk);
 }
@@ -64,11 +78,18 @@ static void	add_move(t_node **oc, int ant, int i, char **walk)
 	}
 }
 
+/*
+** if timer == 0 then time has ran out and algo should've returned 1 already.
+** previous is used to track what the previous move was.
+** undo is the initial node before the ant tries moving to other rooms.
+*/
+
 static int	algo(t_node **oc, int ant, int timer, char *walk)
 {
-	int i;
+	t_node *previous;
+	t_node *undo;
 
-	if (timer == -1)
+	if (timer == 0)
 	{
 		if (oc[ant - 1]->distance == 0)
 			return (1);
@@ -79,25 +100,26 @@ static int	algo(t_node **oc, int ant, int timer, char *walk)
 		ant = 0;
 		timer--;
 	}
-	i = 0;
-	while (next_move(oc, ant, &i) && !algo(oc, ant + 1, timer, walk))
-		undo_move(oc, ant, &i);
-	if (i == -1)
+	undo = oc[ant];
+	previous = NULL;
+	while (next_move(oc, oc[ant], &previous, timer) && !algo(oc, ant + 1, timer, walk))
+		move_ant(oc, oc[ant], undo);
+	if (previous == NULL)
 		return (0);
-	add_move(oc, ant, i, &walk);
+	add_move(oc, ant, &previous, &walk);
 	return (1);
 }
-
-/*
-** j starts at -1 so the following while loop can cycle through all the
-** links but also staying put as possible actions.
-*/
 
 void		solver(t_node **occupied, char *walk)
 {
 	int timer;
 
 	timer = occupied[0]->distance;
+	if (timer == 0)
+	{
+		walk = "";
+		return ;
+	}
 	while (!algo(occupied, 0, timer, walk))
 		timer++;
 }

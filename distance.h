@@ -3,5 +3,6 @@
 # define DISTANCE_H
 
 # include "struct.h"
+# include <stdlib.h>
 
 #endif

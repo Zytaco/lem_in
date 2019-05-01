@@ -24,17 +24,21 @@ static int	surround(t_node *room)
 	return (ret);
 }
 
-static int	rooms_with_d(t_node **rooms, int distance)
+static int	rooms_with_d(int len, t_node *without[len], int distance)
 {
 	int i;
 	int ret;
 
 	ret = 0;
 	i = 0;
-	while (rooms[i])
+	while (i < len)
 	{
-		if (rooms[i]->distance == distance)
-			ret = surround(rooms[i]);
+		if (without[i] && without[i]->distance == distance)
+		{
+			if (surround(without[i]))
+				ret = 1;
+			without[i] = NULL;
+		}
 		i++;
 	}
 	return (ret);
@@ -55,20 +59,38 @@ static int	rooms_with_d(t_node **rooms, int distance)
 ** If not this map is invalid.
 */
 
-int			distance(t_node **rooms)
+static int	distance_two(t_node **rooms, int len)
 {
-	int i;
-	int did_something;
-	int distance;
+	t_node	*without[len];
+	int		i;
+	int		did_something;
+	int		distance;
 
+	i = 0;
+	while (i < len)
+	{
+		without[i] = rooms[i];
+		i++;
+	}
 	distance = 0;
 	did_something = 1;
 	while (did_something)
 	{
-		did_something = rooms_with_d(rooms, distance);
+		did_something = rooms_with_d(len, without, distance);
 		distance++;
 	}
 	if (rooms[0]->distance == -1)
 		return (0);
 	return (1);
+}
+
+int			distance(t_node **rooms)
+{
+	int len;
+	int did_something;
+
+	len = 0;
+	while (rooms[len])
+		len++;
+	distance_two(rooms, len);
 }
